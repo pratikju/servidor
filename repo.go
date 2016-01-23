@@ -14,11 +14,11 @@ type Repository struct {
 
 func GetRepository(h, u, r string) Repository {
 	var repo Repository
-
-	repo = Repository{Name: strings.Split(r, ".git")[0],
+	rawRepoName := strings.Split(r, ".git")[0]
+	repo = Repository{Name: rawRepoName,
 		CloneUrl:    FormCloneURL(h, u, r),
 		Owner:       u,
-		BranchesUrl: fmt.Sprintf(GetProtocol(false) + r + GetBranchesUrl()),
+		BranchesUrl: fmt.Sprintf("%s/api/%s/repos/%s/branches", GetProtocol(false)+h, u, rawRepoName),
 	}
 	return repo
 }

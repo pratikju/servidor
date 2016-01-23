@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/libgit2/git2go"
 	"log"
 	"net/http"
 	"os"
@@ -119,7 +120,16 @@ func repoShowHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func branchIndexHandler(w http.ResponseWriter, r *http.Request) {
-
+	var errJson Error
+	userName, repoName := GetParamValues(r)
+	if ok := IsExistingRepository(RepoPath(userName, repoName)); !ok {
+		errJson = Error{Message: "repository not found"}
+		WriteIndentedJson(w, errJson, "", "  ")
+		return
+	}
+	re, _ := git.OpenRepository(RepoPath(userName, repoName))
+	branches, _ := GetBranches(re)
+	WriteIndentedJson(w, branches, "", "  ")
 }
 
 func branchShowHandler(w http.ResponseWriter, r *http.Request) {
