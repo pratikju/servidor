@@ -22,6 +22,7 @@ func attachHandler(r *mux.Router) {
 	r.HandleFunc("/", rootHandler).Methods("GET")
 	r.HandleFunc(`/{user-name}/{repo-name:([a-zA-Z0-9\-\.\_]+)}/info/refs`, serviceHandler).Methods("GET")
 	r.HandleFunc(`/{user-name}/{repo-name:([a-zA-Z0-9\-\.\_]+)}/git-upload-pack`, uploadPackHandler).Methods("POST")
+	r.HandleFunc(`/{user-name}/{repo-name:([a-zA-Z0-9\-\.\_]+)}/git-receive-pack`, receivePackHandler).Methods("POST")
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {

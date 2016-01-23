@@ -42,7 +42,7 @@ func CreateFirstPKTLine(service string) string {
 	return prefix + packet + magicMarker
 }
 
-func GetDefaultRepoPath() string {
+func GetDefaultReposPath() string {
 	rPath, _ := os.Getwd()
 	return rPath
 }
@@ -56,7 +56,7 @@ func IsExistingRepository(path string) bool {
 }
 
 func UserPath(userName string) string {
-	return filepath.Join(config.RepoRootPath, strings.ToLower(userName))
+	return filepath.Join(config.ReposRootPath, strings.ToLower(userName))
 }
 
 func RepoPath(userName, repoName string) string {
@@ -67,4 +67,8 @@ func RepoPath(userName, repoName string) string {
 		r = strings.ToLower(repoName) + ".git"
 	}
 	return filepath.Join(UserPath(userName), r)
+}
+
+func GetDefaultGitPath() string{
+  return "/usr/bin/git"
 }
