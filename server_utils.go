@@ -60,7 +60,6 @@ func UserPath(userName string) string {
 }
 
 func RepoPath(userName, repoName string) string {
-
 	return filepath.Join(UserPath(userName), FormatRepoName(repoName))
 }
 

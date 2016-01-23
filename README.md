@@ -10,7 +10,7 @@ Servidor is a light-weight no-database git server following git smart http proto
   - [x] Fetch change sets from remote.
   - [x] Pull change sets from remote.
 - APIs
-  - [ ] Create repository
+  - [x] Create repository
   - [ ] List all repositories corresponding to a user.
   - [ ] List a particular repository corresponding to a user.
   - [ ] List all the branches in a repository.
