@@ -1,11 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
-	"log"
-	"encoding/json"
 	"os/exec"
 )
 
@@ -54,7 +54,7 @@ func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	usrPath := UserPath(payload.Username)
 	bareRepo := FormatRepoName(payload.RepoName)
-	url := fmt.Sprintf(GetProtocol(false) + r.Host + "/" + payload.Username + "/" + bareRepo)
+	url := FormCloneURL(r.Host, payload.Username, bareRepo)
 
 	if _, err := os.Stat(RepoPath(payload.Username, payload.RepoName)); err == nil {
 		resp.ResponseMessage = fmt.Sprintf("repository already exists for %s", payload.Username)
@@ -88,7 +88,22 @@ func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func repoIndexHandler(w http.ResponseWriter, r *http.Request) {
+	userName, _ := GetParamValues(r)
+	var errJson Error
+	list, ok := FindAllDir(UserPath(userName))
+	if !ok {
+		errJson = Error{Message: "repository not found"}
+		WriteIndentedJson(w, errJson, "", "  ")
+		return
+	}
+	var repo Repository
+	repos := make([]Repository, 0)
 
+	for i := 0; i < len(list); i++ {
+		repo = GetRepository(r.Host, userName, list[i].Name())
+		repos = append(repos, repo)
+	}
+	WriteIndentedJson(w, repos, "", "  ")
 }
 
 func repoShowHandler(w http.ResponseWriter, r *http.Request) {

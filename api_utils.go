@@ -3,7 +3,25 @@ package main
 import (
 	"encoding/json"
 	"io"
+	"os"
+	"io/ioutil"
+	"fmt"
+	"log"
 )
+
+func FindAllDir(targetPath string) ([]os.FileInfo, bool) {
+	list := make([]os.FileInfo, 0)
+	var err error
+	if list, err = ioutil.ReadDir(targetPath); err != nil {
+		log.Println("Error finding repository:", err)
+		return nil, false
+	}
+	return list, true
+}
+
+func FormCloneURL(host, userName, repoName string) string {
+	return (fmt.Sprintf(GetProtocol(false) + host + "/" + userName + "/" + repoName))
+}
 
 func GetRepoCreateUrl() string {
 	return "/api/repos/create"
