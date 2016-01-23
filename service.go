@@ -22,13 +22,13 @@ func serviceHandler(w http.ResponseWriter, r *http.Request) {
 
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		log.Println("Error with child stdout pipe:", err.Error())
+		log.Println("Error with child stdout pipe:", err)
 		http.Error(w, "Error with child stdout pipe:", http.StatusInternalServerError)
 		return
 	}
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
-		log.Println("Error with child stderr pipe:", err.Error())
+		log.Println("Error with child stderr pipe:", err)
 		http.Error(w, "Error with child stderr pipe:", http.StatusInternalServerError)
 		return
 	}

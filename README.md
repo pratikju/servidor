@@ -5,7 +5,7 @@ Servidor is a light-weight no-database git server following git smart http proto
 
 # TODO
 - Git Operations
-  - [ ] Clone the project repository.
+  - [x] Clone the project repository.
   - [ ] Push change sets from local to remote.
   - [ ] Fetch change sets from remote.
   - [ ] Pull change sets from remote.
