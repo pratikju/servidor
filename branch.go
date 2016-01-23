@@ -61,3 +61,18 @@ func getBranch(ref *git.Reference, revWalk *git.RevWalk) Branch {
 	branch = Branch{Name: name, IsHead: isHead, Commits: commits}
 	return branch
 }
+
+func GetBranchByName(name string, repo *git.Repository) (Branch, bool) {
+	var branch Branch
+	gitBranch, err := repo.LookupBranch(name, git.BranchLocal)
+	if err != nil {
+		return branch, false
+	}
+
+	revWalk, err := repo.Walk()
+	if err != nil {
+		log.Println(err)
+		return branch, false
+	}
+	return getBranch(gitBranch.Reference, revWalk), true
+}

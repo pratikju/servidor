@@ -9,7 +9,7 @@ import (
 )
 
 func receivePackHandler(w http.ResponseWriter, r *http.Request) {
-	userName, repoName := GetParamValues(r)
+	userName, repoName, _ := GetParamValues(r)
 	execPath := RepoPath(userName, repoName)
 
 	cmd := exec.Command(config.GitPath, "receive-pack", "--stateless-rpc", execPath)

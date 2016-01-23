@@ -14,7 +14,7 @@ Servidor is a light-weight no-database git server following git smart http proto
   - [x] List all repositories corresponding to a user.
   - [x] List a particular repository corresponding to a user.
   - [x] List all the branches in a repository.
-  - [ ] List a particular branch in a repository.
+  - [x] List a particular branch in a repository.
 - Extra Features
   - [ ] Provide basic authentication
   - [ ] Enable ssl connection as per configuration.

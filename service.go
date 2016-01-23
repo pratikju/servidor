@@ -9,7 +9,7 @@ import (
 )
 
 func serviceHandler(w http.ResponseWriter, r *http.Request) {
-	userName, repoName := GetParamValues(r)
+	userName, repoName, _ := GetParamValues(r)
 	service := FindService(r)
 	execPath := RepoPath(userName, repoName)
 	if ok := IsExistingRepository(execPath); !ok {

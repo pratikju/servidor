@@ -89,7 +89,7 @@ func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func repoIndexHandler(w http.ResponseWriter, r *http.Request) {
-	userName, _ := GetParamValues(r)
+	userName, _, _ := GetParamValues(r)
 	var errJson Error
 	list, ok := FindAllDir(UserPath(userName))
 	if !ok {
@@ -109,7 +109,7 @@ func repoIndexHandler(w http.ResponseWriter, r *http.Request) {
 
 func repoShowHandler(w http.ResponseWriter, r *http.Request) {
 	var errJson Error
-	userName, repoName := GetParamValues(r)
+	userName, repoName, _ := GetParamValues(r)
 	if ok := IsExistingRepository(RepoPath(userName, repoName)); !ok {
 		errJson = Error{Message: "repository not found"}
 		WriteIndentedJson(w, errJson, "", "  ")
@@ -121,7 +121,7 @@ func repoShowHandler(w http.ResponseWriter, r *http.Request) {
 
 func branchIndexHandler(w http.ResponseWriter, r *http.Request) {
 	var errJson Error
-	userName, repoName := GetParamValues(r)
+	userName, repoName, _ := GetParamValues(r)
 	if ok := IsExistingRepository(RepoPath(userName, repoName)); !ok {
 		errJson = Error{Message: "repository not found"}
 		WriteIndentedJson(w, errJson, "", "  ")
@@ -133,5 +133,21 @@ func branchIndexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func branchShowHandler(w http.ResponseWriter, r *http.Request) {
+	var errJson Error
+	userName, repoName, branchName := GetParamValues(r)
+	if ok := IsExistingRepository(RepoPath(userName, repoName)); !ok {
+		errJson = Error{Message: "repository not found"}
+		WriteIndentedJson(w, errJson, "", "  ")
+		return
+	}
 
+	re, _ := git.OpenRepository(RepoPath(userName, repoName))
+	branch, ok := GetBranchByName(branchName, re)
+	if !ok {
+		errJson = Error{Message: "branch not found"}
+		WriteIndentedJson(w, errJson, "", "  ")
+		return
+	}
+
+	WriteIndentedJson(w, branch, "", "  ")
 }

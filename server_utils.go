@@ -10,11 +10,12 @@ import (
 	"strings"
 )
 
-func GetParamValues(r *http.Request) (string, string) {
+func GetParamValues(r *http.Request) (string, string, string) {
 	vars := mux.Vars(r)
 	userName := vars["user-name"]
 	repoName := vars["repo-name"]
-	return userName, repoName
+	branchName := vars["branch-name"]
+	return userName, repoName, branchName
 }
 
 func FindService(r *http.Request) string {
