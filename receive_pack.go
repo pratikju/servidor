@@ -1,20 +1,20 @@
 package main
 
 import (
-  "net/http"
-  "os/exec"
-  "log"
-  "io/ioutil"
-  "io"
+	"io"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os/exec"
 )
 
 func receivePackHandler(w http.ResponseWriter, r *http.Request) {
-  userName, repoName := GetParamValues(r)
-  execPath := RepoPath(userName, repoName)
+	userName, repoName := GetParamValues(r)
+	execPath := RepoPath(userName, repoName)
 
-  cmd := exec.Command(config.GitPath, "receive-pack", "--stateless-rpc", execPath)
+	cmd := exec.Command(config.GitPath, "receive-pack", "--stateless-rpc", execPath)
 
-  stdin, err := cmd.StdinPipe()
+	stdin, err := cmd.StdinPipe()
 	if err != nil {
 		log.Println("Error with child stdin pipe:", err)
 		http.Error(w, "Error with child stdin pipe", http.StatusInternalServerError)

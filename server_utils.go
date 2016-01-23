@@ -60,15 +60,20 @@ func UserPath(userName string) string {
 }
 
 func RepoPath(userName, repoName string) string {
+
+	return filepath.Join(UserPath(userName), FormatRepoName(repoName))
+}
+
+func FormatRepoName(repoName string) string {
 	var r string
 	if strings.HasSuffix(repoName, ".git") {
 		r = strings.ToLower(repoName)
 	} else {
 		r = strings.ToLower(repoName) + ".git"
 	}
-	return filepath.Join(UserPath(userName), r)
+	return r
 }
 
-func GetDefaultGitPath() string{
-  return "/usr/bin/git"
+func GetDefaultGitPath() string {
+	return "/usr/bin/git"
 }
