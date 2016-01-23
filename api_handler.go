@@ -107,7 +107,15 @@ func repoIndexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func repoShowHandler(w http.ResponseWriter, r *http.Request) {
-
+	var errJson Error
+	userName, repoName := GetParamValues(r)
+	if ok := IsExistingRepository(RepoPath(userName, repoName)); !ok {
+		errJson = Error{Message: "repository not found"}
+		WriteIndentedJson(w, errJson, "", "  ")
+		return
+	}
+	repo := GetRepository(r.Host, userName, FormatRepoName(repoName))
+	WriteIndentedJson(w, repo, "", "  ")
 }
 
 func branchIndexHandler(w http.ResponseWriter, r *http.Request) {

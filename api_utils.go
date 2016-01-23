@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"io"
-	"os"
-	"io/ioutil"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"log"
+	"os"
 )
 
 func FindAllDir(targetPath string) ([]os.FileInfo, bool) {
