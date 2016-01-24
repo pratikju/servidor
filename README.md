@@ -69,6 +69,6 @@ servidor -h will show the flags to start the server
   - [x] List all the branches in a repository. - GET
   - [x] List a particular branch in a repository. - GET
 - Extra Features
-  - [ ] Provide basic authentication
+  - [x] Provide basic authentication
   - [ ] Enable ssl connection as per configuration.
   - [ ] Block push, pull operations as per configuration.
