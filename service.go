@@ -11,6 +11,11 @@ import (
 func serviceHandler(w http.ResponseWriter, r *http.Request) {
 	userName, repoName, _ := GetParamValues(r)
 	service := FindService(r)
+	if ok := IsRestricted(service); ok {
+		log.Println("Operation not permitted")
+		http.Error(w, "Operation not permitted", http.StatusForbidden)
+		return
+	}
 	execPath := RepoPath(userName, repoName)
 	if ok := IsExistingRepository(execPath); !ok {
 		log.Println("repository not found")

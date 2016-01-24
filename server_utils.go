@@ -56,6 +56,16 @@ func IsExistingRepository(path string) bool {
 	return f.IsDir()
 }
 
+func IsRestricted(service string) bool {
+	if service == "receive-pack" {
+		return config.RestrictReceivePack
+	}
+	if service == "upload-pack" {
+		return config.RestrictUploadPack
+	}
+	return true
+}
+
 func UserPath(userName string) string {
 	return filepath.Join(config.ReposRootPath, strings.ToLower(userName))
 }

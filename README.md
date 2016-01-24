@@ -71,4 +71,4 @@ servidor -h will show the flags to start the server
 - Extra Features
   - [x] Provide basic authentication
   - [x] Enable ssl connection as per configuration.
-  - [ ] Block push, pull operations as per configuration.
+  - [x] Block push, pull operations as per configuration.

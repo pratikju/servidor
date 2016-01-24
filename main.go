@@ -8,24 +8,28 @@ import (
 )
 
 type Config struct {
-	Port           string
-	Hostname       string
-	GitPath        string
-	ReposRootPath  string
-	AuthEnabled    bool
-	PasswdFilePath string
-	SSLEnabled     bool
+	Port                string
+	Hostname            string
+	GitPath             string
+	ReposRootPath       string
+	AuthEnabled         bool
+	PasswdFilePath      string
+	SSLEnabled          bool
+	RestrictReceivePack bool
+	RestrictUploadPack  bool
 }
 
 var (
-	port       = flag.String("p", "8000", "Port on which git server will listen")
-	hostName   = flag.String("b", "0.0.0.0", "Hostname to be used")
-	repo       = flag.String("r", GetDefaultReposPath(), "Set the path where repositories will be saved, Just mention the base directory(\"repos\" directory will be automatically created inside it).")
-	gitPath    = flag.String("g", GetDefaultGitPath(), "Mention the gitPath if its different in the system")
-	passwdFile = flag.String("c", "", "Set the path from where the password file is to be read(to be set whenever -a flag is used)")
-	auth       = flag.Bool("a", false, "Enable basic authentication for all http operations")
-	ssl        = flag.Bool("s", false, "Allow ssl")
-	config     Config
+	port         = flag.String("p", "8000", "Port on which git server will listen")
+	hostName     = flag.String("b", "0.0.0.0", "Hostname to be used")
+	repo         = flag.String("r", GetDefaultReposPath(), "Set the path where repositories will be saved, Just mention the base path.(\"repos\" directory will be automatically created inside it)")
+	gitPath      = flag.String("g", GetDefaultGitPath(), "Mention the gitPath if its different in the system")
+	passwdFile   = flag.String("c", "", "Set the path from where the password file is to be read(to be set whenever -a flag is used)")
+	auth         = flag.Bool("a", false, "Enable basic authentication for all http operations")
+	ssl          = flag.Bool("s", false, "Allow ssl")
+	restrictPush = flag.Bool("R", false, "Set Whether ReceivePack(push operation) is permitted")
+	restrictPull = flag.Bool("U", false, "Set Whether UploadPack(clone, pull, fetch operations) is permitted")
+	config       Config
 )
 
 func main() {
@@ -41,6 +45,7 @@ func main() {
 		}
 	}
 	config = Config{Port: *port, Hostname: *hostName, ReposRootPath: filepath.Join(*repo, "repos"),
-		GitPath: *gitPath, AuthEnabled: *auth, PasswdFilePath: *passwdFile, SSLEnabled: *ssl}
+		GitPath: *gitPath, AuthEnabled: *auth, PasswdFilePath: *passwdFile, SSLEnabled: *ssl,
+		RestrictReceivePack: *restrictPush, RestrictUploadPack: *restrictPull}
 	GitServer()
 }
