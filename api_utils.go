@@ -20,7 +20,7 @@ func FindAllDir(targetPath string) ([]os.FileInfo, bool) {
 }
 
 func FormCloneURL(host, userName, repoName string) string {
-	return (fmt.Sprintf(GetProtocol(false) + host + "/" + userName + "/" + repoName))
+	return (fmt.Sprintf(GetProtocol(config.SSLEnabled) + host + "/" + userName + "/" + repoName))
 }
 
 func GetRepoCreateUrl() string {

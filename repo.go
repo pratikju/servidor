@@ -18,7 +18,7 @@ func GetRepository(h, u, r string) Repository {
 	repo = Repository{Name: rawRepoName,
 		CloneUrl:    FormCloneURL(h, u, r),
 		Owner:       u,
-		BranchesUrl: fmt.Sprintf("%s/api/%s/repos/%s/branches{/branch-name}", GetProtocol(false)+h, u, rawRepoName),
+		BranchesUrl: fmt.Sprintf("%s/api/%s/repos/%s/branches{/branch-name}", GetProtocol(config.SSLEnabled)+h, u, rawRepoName),
 	}
 	return repo
 }

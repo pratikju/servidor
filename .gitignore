@@ -1,5 +1,13 @@
 # Executables
 
 servidor
+
+# Repository directory
+
 repos/
+
+# Password and certificate files
+
 *.txt
+*.key
+*.pem

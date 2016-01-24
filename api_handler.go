@@ -17,11 +17,11 @@ type Payload struct {
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	baseResp := BaseResponse{
-		CreateRepositoryUrl: fmt.Sprintf(GetProtocol(false) + r.Host + GetRepoCreateUrl()),
-		UserRepositoriesUrl: fmt.Sprintf(GetProtocol(false) + r.Host + GetReposUrl()),
-		UserRepositoryUrl:   fmt.Sprintf(GetProtocol(false) + r.Host + GetRepoUrl()),
-		BranchesUrl:         fmt.Sprintf(GetProtocol(false) + r.Host + GetBranchesUrl()),
-		BranchUrl:           fmt.Sprintf(GetProtocol(false) + r.Host + GetBranchUrl()),
+		CreateRepositoryUrl: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoCreateUrl()),
+		UserRepositoriesUrl: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetReposUrl()),
+		UserRepositoryUrl:   fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoUrl()),
+		BranchesUrl:         fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchesUrl()),
+		BranchUrl:           fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchUrl()),
 	}
 
 	WriteIndentedJson(w, baseResp, "", "  ")

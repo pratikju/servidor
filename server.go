@@ -13,8 +13,15 @@ func GitServer() {
 
 	r := mux.NewRouter()
 	attachHandler(r)
-	if err := http.ListenAndServe(host, r); err != nil {
-		log.Fatal(err)
+
+	if config.SSLEnabled {
+		if err := http.ListenAndServeTLS(host, "server.pem", "server.key", r); err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		if err := http.ListenAndServe(host, r); err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 

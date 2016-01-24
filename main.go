@@ -14,6 +14,7 @@ type Config struct {
 	ReposRootPath  string
 	AuthEnabled    bool
 	PasswdFilePath string
+	SSLEnabled     bool
 }
 
 var (
@@ -23,6 +24,7 @@ var (
 	gitPath    = flag.String("g", GetDefaultGitPath(), "Mention the gitPath if its different in the system")
 	passwdFile = flag.String("c", "", "Set the path from where the password file is to be read(to be set whenever -a flag is used)")
 	auth       = flag.Bool("a", false, "Enable basic authentication for all http operations")
+	ssl        = flag.Bool("s", false, "Allow ssl")
 	config     Config
 )
 
@@ -39,6 +41,6 @@ func main() {
 		}
 	}
 	config = Config{Port: *port, Hostname: *hostName, ReposRootPath: filepath.Join(*repo, "repos"),
-		GitPath: *gitPath, AuthEnabled: *auth, PasswdFilePath: *passwdFile}
+		GitPath: *gitPath, AuthEnabled: *auth, PasswdFilePath: *passwdFile, SSLEnabled: *ssl}
 	GitServer()
 }
