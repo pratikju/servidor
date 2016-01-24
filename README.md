@@ -20,6 +20,11 @@ Servidor is a light-weight no-database git server following git smart HTTP proto
   - [x] Allowing TLS connection as per flag.
   - [x] Restricting push, pull operations as per flag.
 
+
+  ![](https://github.com/gophergala2016/servidor/blob/master/screencasts/git_operations_without_auth.gif)
+
+  [More screenshots](https://github.com/gophergala2016/servidor/tree/master/screencasts)
+
 ## Motivation
 
 While setting up our project a few months back, we had to go through the trouble of setup and configuration
