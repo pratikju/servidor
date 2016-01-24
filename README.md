@@ -1,6 +1,6 @@
 # **Servidor**
 
-Servidor is a light-weight no-database git server following git smart http protocol. You can do all kind of git remote operations like push, pull, fetch and clone. Host the server hastle free and get started. Features supported as of now are listed below:
+Servidor is a light-weight no-database git server following git smart HTTP protocol. You can do all kind of git remote operations like push, pull, fetch and clone. Host the server very easily and get started. Features supported as of now are listed below:
 
 - Git Remote Operations
   - [x] Cloning of git repository.
@@ -14,22 +14,18 @@ Servidor is a light-weight no-database git server following git smart http proto
   - [x] List all the branches in a repository. - GET
   - [x] List a particular branch in a repository. - GET
 - Extra Features
-  - [x] Provide basic authentication
-  - [x] Enable ssl connection as per configuration.
-  - [x] Restrict push, pull operations as per configuration.
-
-
-More features will be added in coming hours and also in days to come, to achieve completion.
-I will be updating documentation on regular basis.
+  - [x] Basic authentication as per flag
+  - [x] Allowing TLS connection as per flag.
+  - [x] Restricting push, pull operations as per flag.
 
 ## Motivation
 
-While setting up our project a few months back, we had to go through the hastle of setup and configuration
+While setting up our project a few months back, we had to go through the trouble of setup and configuration
 needed in GitLab. To do away with all of that in future, I decided to create a git server of my own. It will typically help small group of coders, who wish to maintain private repositories within a local network and don't want to do all sorts of setup needed in GitLab and other providers.
 
 ## Installation
 
-- Install cmake from brew or apt-get package manager. To build from source, follow [this](https://cmake.org/install/) link
+- Install cmake from brew(Mac) or apt-get(linux) package manager. To build from source, follow [this](https://cmake.org/install/) link
 
 - Install libgit2 as follows :
     ```
@@ -41,16 +37,17 @@ needed in GitLab. To do away with all of that in future, I decided to create a g
       $ sudo make install
     ```
 
-- Install go packages as follows :
-    ```
-      $ go get github.com/libgit2/git2go
-      $ go get github.com/gorilla/mux
-    ```
+- Build the project
 
-- Build the project using :
-    ```
-      $ go build
-    ```
+  Assuming you have installed a recent version of
+  [Go](https://golang.org/doc/install), you can simply run
+
+  ```
+  go get github.com/gophergala2016/servidor
+  ```
+
+  This will download Servidor to `$GOPATH/src/github.com/gophergala2016/servidor`. From
+  this directory run `go build` to create the `servidor` binary.
 
 - Troubleshooting:-  
     ```ImportError: libgit2.so.0: cannot open shared object file: No such file or directory```  
