@@ -26,9 +26,9 @@ var (
 	gitPath      = flag.String("g", GetDefaultGitPath(), "Mention the gitPath if its different in the system")
 	passwdFile   = flag.String("c", "", "Set the path from where the password file is to be read(to be set whenever -a flag is used)")
 	auth         = flag.Bool("a", false, "Enable basic authentication for all http operations")
-	ssl          = flag.Bool("s", false, "Allow ssl")
-	restrictPush = flag.Bool("R", false, "Set Whether ReceivePack(push operation) is permitted")
-	restrictPull = flag.Bool("U", false, "Set Whether UploadPack(clone, pull, fetch operations) is permitted")
+	ssl          = flag.Bool("s", false, "Enable ssl connection")
+	restrictPush = flag.Bool("R", false, "Set Whether ReceivePack(push operation) will be restricted")
+	restrictPull = flag.Bool("U", false, "Set Whether UploadPack(clone, pull, fetch operations) will be restricted")
 	config       Config
 )
 
