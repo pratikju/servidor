@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"io"
+	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
-	"io"
-	"os/exec"
-	"log"
 )
 
 func GetParamValues(r *http.Request) (string, string, string) {

@@ -20,7 +20,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		CreateRepositoryURL: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoCreateURL()),
 		UserRepositoriesURL: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetReposURL()),
 		UserRepositoryURL:   fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoURL()),
-		BranchesURL:         fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchesURL()+"{/branch-name}"),
+		BranchesURL:         fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchesURL() + "{/branch-name}"),
 	}
 
 	WriteIndentedJSON(w, baseResp, "", "  ")
