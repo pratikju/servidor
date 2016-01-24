@@ -23,7 +23,7 @@ Servidor is a light-weight no-database git server following git smart HTTP proto
 
   ![](https://github.com/gophergala2016/servidor/blob/master/screencasts/git_operations_without_auth.gif)
 
-  [More screenshots](https://github.com/gophergala2016/servidor/tree/master/screencasts)
+  [More screencasts](https://github.com/gophergala2016/servidor/tree/master/screencasts)
 
 ## Motivation
 
@@ -149,6 +149,7 @@ Usage of ./servidor:
   ```
 
  Since the certificates are self authorized, server verification must be turned off for clients:
+ 
  For curl, `use -k flag`
 
  For git, `export GIT_SSL_NO_VERIFY=1`
