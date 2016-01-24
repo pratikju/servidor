@@ -13,7 +13,7 @@ type Branch struct {
 
 func GetBranches(repo *git.Repository) ([]Branch, error) {
 	var branch Branch
-	branches := make([]Branch, 0)
+	var branches []Branch
 
 	itr, _ := repo.NewReferenceIterator()
 	refs := getReferences(itr)
@@ -34,7 +34,7 @@ func GetBranches(repo *git.Repository) ([]Branch, error) {
 
 func getReferences(itr *git.ReferenceIterator) []*git.Reference {
 	var ref *git.Reference
-	refs := make([]*git.Reference, 0)
+	var refs []*git.Reference
 	var err error
 	for {
 		ref, err = itr.Next()

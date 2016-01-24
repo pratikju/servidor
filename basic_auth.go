@@ -55,6 +55,6 @@ func matchPassword(savedPwd string, sentPwd string) bool {
 func renderUnauthorized(w http.ResponseWriter, error string) {
 	w.Header().Set("WWW-Authenticate", "Basic realm=\"\"")
 	w.WriteHeader(http.StatusUnauthorized)
-	errJson := Error{Message: error}
-	WriteIndentedJson(w, errJson, "", "  ")
+	errJSON := Error{Message: error}
+	WriteIndentedJSON(w, errJSON, "", "  ")
 }

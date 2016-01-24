@@ -35,8 +35,8 @@ func serviceHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	content_type := fmt.Sprintf("application/x-git-%s-advertisement", service)
-	SetHeader(w, content_type)
+	contentType := fmt.Sprintf("application/x-git-%s-advertisement", service)
+	SetHeader(w, contentType)
 	w.Write([]byte(CreateFirstPKTLine(service)))
 	go io.Copy(w, stdout)
 	go io.Copy(w, stderr)

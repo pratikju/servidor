@@ -27,11 +27,11 @@ func FindService(r *http.Request) string {
 	return service
 }
 
-func SetHeader(w http.ResponseWriter, content_type string) {
+func SetHeader(w http.ResponseWriter, contentType string) {
 	w.Header().Set("Expires", "Fri, 01 Jan 1980 00:00:00 GMT")
 	w.Header().Set("Pragma", "no-cache")
 	w.Header().Set("Cache-Control", "no-cache, max-age=0, must-revalidate")
-	w.Header().Set("Content-Type", content_type)
+	w.Header().Set("Content-Type", contentType)
 	w.WriteHeader(http.StatusOK)
 }
 

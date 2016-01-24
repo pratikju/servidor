@@ -17,24 +17,24 @@ type Payload struct {
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	baseResp := BaseResponse{
-		CreateRepositoryUrl: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoCreateUrl()),
-		UserRepositoriesUrl: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetReposUrl()),
-		UserRepositoryUrl:   fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoUrl()),
-		BranchesUrl:         fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchesUrl()+"{/branch-name}"),
+		CreateRepositoryURL: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoCreateURL()),
+		UserRepositoriesURL: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetReposURL()),
+		UserRepositoryURL:   fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoURL()),
+		BranchesURL:         fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchesURL()+"{/branch-name}"),
 	}
 
-	WriteIndentedJson(w, baseResp, "", "  ")
+	WriteIndentedJSON(w, baseResp, "", "  ")
 }
 
 func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 	var resp CreateResponse
 	resp.ResponseMessage = "Unknown error. Follow README"
-	resp.CloneUrl = ""
+	resp.CloneURL = ""
 
 	wd, _ := os.Getwd()
 
 	defer func() {
-		WriteIndentedJson(w, resp, "", "  ")
+		WriteIndentedJSON(w, resp, "", "  ")
 		if err := os.Chdir(wd); err != nil {
 			log.Println(err)
 		}
@@ -45,26 +45,19 @@ func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 	if err := decoder.Decode(&payload); err != nil {
 		log.Println(err)
 		return
-	} else {
-		if payload.Username == "" || payload.RepoName == "" {
-			log.Println("Empty username or reponame")
-			return
-		}
+	}
+	if payload.Username == "" || payload.RepoName == "" {
+		log.Println("Empty username or reponame")
+		return
 	}
 
 	usrPath := UserPath(payload.Username)
 	bareRepo := FormatRepoName(payload.RepoName)
 	url := FormCloneURL(r.Host, payload.Username, bareRepo)
 
-	// if _, err := os.Stat(RepoPath(payload.Username, payload.RepoName)); err == nil {
-	// 	resp.ResponseMessage = fmt.Sprintf("repository already exists for %s", payload.Username)
-	// 	resp.CloneUrl = url
-	// 	return
-	// }
-
 	if ok := IsExistingRepository(RepoPath(payload.Username, payload.RepoName)); ok {
 		resp.ResponseMessage = fmt.Sprintf("repository already exists for %s", payload.Username)
-		resp.CloneUrl = url
+		resp.CloneURL = url
 		return
 	}
 
@@ -81,7 +74,7 @@ func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 	cmd := exec.Command(config.GitPath, "init", "--bare", bareRepo)
 
 	if err := cmd.Start(); err == nil {
-		resp.CloneUrl = url
+		resp.CloneURL = url
 		resp.ResponseMessage = "repository created successfully"
 	} else {
 		resp.ResponseMessage = "error while creating new repository"
@@ -95,64 +88,64 @@ func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 func repoIndexHandler(w http.ResponseWriter, r *http.Request) {
 	userName, _, _ := GetParamValues(r)
-	var errJson Error
+	var errJSON Error
 	list, ok := FindAllDir(UserPath(userName))
 	if !ok {
-		errJson = Error{Message: "repository not found"}
-		WriteIndentedJson(w, errJson, "", "  ")
+		errJSON = Error{Message: "repository not found"}
+		WriteIndentedJSON(w, errJSON, "", "  ")
 		return
 	}
 	var repo Repository
-	repos := make([]Repository, 0)
+	var repos []Repository
 
 	for i := 0; i < len(list); i++ {
 		repo = GetRepository(r.Host, userName, list[i].Name())
 		repos = append(repos, repo)
 	}
-	WriteIndentedJson(w, repos, "", "  ")
+	WriteIndentedJSON(w, repos, "", "  ")
 }
 
 func repoShowHandler(w http.ResponseWriter, r *http.Request) {
-	var errJson Error
+	var errJSON Error
 	userName, repoName, _ := GetParamValues(r)
 	if ok := IsExistingRepository(RepoPath(userName, repoName)); !ok {
-		errJson = Error{Message: "repository not found"}
-		WriteIndentedJson(w, errJson, "", "  ")
+		errJSON = Error{Message: "repository not found"}
+		WriteIndentedJSON(w, errJSON, "", "  ")
 		return
 	}
 	repo := GetRepository(r.Host, userName, FormatRepoName(repoName))
-	WriteIndentedJson(w, repo, "", "  ")
+	WriteIndentedJSON(w, repo, "", "  ")
 }
 
 func branchIndexHandler(w http.ResponseWriter, r *http.Request) {
-	var errJson Error
+	var errJSON Error
 	userName, repoName, _ := GetParamValues(r)
 	if ok := IsExistingRepository(RepoPath(userName, repoName)); !ok {
-		errJson = Error{Message: "repository not found"}
-		WriteIndentedJson(w, errJson, "", "  ")
+		errJSON = Error{Message: "repository not found"}
+		WriteIndentedJSON(w, errJSON, "", "  ")
 		return
 	}
 	re, _ := git.OpenRepository(RepoPath(userName, repoName))
 	branches, _ := GetBranches(re)
-	WriteIndentedJson(w, branches, "", "  ")
+	WriteIndentedJSON(w, branches, "", "  ")
 }
 
 func branchShowHandler(w http.ResponseWriter, r *http.Request) {
-	var errJson Error
+	var errJSON Error
 	userName, repoName, branchName := GetParamValues(r)
 	if ok := IsExistingRepository(RepoPath(userName, repoName)); !ok {
-		errJson = Error{Message: "repository not found"}
-		WriteIndentedJson(w, errJson, "", "  ")
+		errJSON = Error{Message: "repository not found"}
+		WriteIndentedJSON(w, errJSON, "", "  ")
 		return
 	}
 
 	re, _ := git.OpenRepository(RepoPath(userName, repoName))
 	branch, ok := GetBranchByName(branchName, re)
 	if !ok {
-		errJson = Error{Message: "branch not found"}
-		WriteIndentedJson(w, errJson, "", "  ")
+		errJSON = Error{Message: "branch not found"}
+		WriteIndentedJSON(w, errJSON, "", "  ")
 		return
 	}
 
-	WriteIndentedJson(w, branch, "", "  ")
+	WriteIndentedJSON(w, branch, "", "  ")
 }

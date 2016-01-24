@@ -1,13 +1,13 @@
 package main
 
 type BaseResponse struct {
-	CreateRepositoryUrl string `json:"create_repo_url"`
-	UserRepositoriesUrl string `json:"user_repositories_url"`
-	UserRepositoryUrl   string `json:"user_repository_url"`
-	BranchesUrl         string `json:"branches_url"`
+	CreateRepositoryURL string `json:"create_repo_url"`
+	UserRepositoriesURL string `json:"user_repositories_url"`
+	UserRepositoryURL   string `json:"user_repository_url"`
+	BranchesURL         string `json:"branches_url"`
 }
 
 type CreateResponse struct {
 	ResponseMessage string `json:"response_message"`
-	CloneUrl        string `json:"clone_url"`
+	CloneURL        string `json:"clone_url"`
 }

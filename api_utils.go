@@ -10,7 +10,7 @@ import (
 )
 
 func FindAllDir(targetPath string) ([]os.FileInfo, bool) {
-	list := make([]os.FileInfo, 0)
+	var list []os.FileInfo
 	var err error
 	if list, err = ioutil.ReadDir(targetPath); err != nil {
 		log.Println("Error finding repository:", err)
@@ -23,23 +23,23 @@ func FormCloneURL(host, userName, repoName string) string {
 	return (fmt.Sprintf(GetProtocol(config.SSLEnabled) + host + "/" + userName + "/" + repoName))
 }
 
-func GetRepoCreateUrl() string {
+func GetRepoCreateURL() string {
 	return "/api/repos/create"
 }
 
-func GetReposUrl() string {
+func GetReposURL() string {
 	return "/api/{user-name}/repos"
 }
 
-func GetRepoUrl() string {
+func GetRepoURL() string {
 	return "/api/{user-name}/repos/{repo-name}"
 }
 
-func GetBranchesUrl() string {
+func GetBranchesURL() string {
 	return "/api/{user-name}/repos/{repo-name}/branches"
 }
 
-func GetBranchUrl() string {
+func GetBranchURL() string {
 	return "/api/{user-name}/repos/{repo-name}/branches/{branch-name}"
 }
 
@@ -50,7 +50,7 @@ func GetProtocol(ssl bool) string {
 	return "http://"
 }
 
-func WriteIndentedJson(w io.Writer, v interface{}, prefix, indent string) {
+func WriteIndentedJSON(w io.Writer, v interface{}, prefix, indent string) {
 	resp, _ := json.MarshalIndent(v, prefix, indent)
 	w.Write(resp)
 	w.Write([]byte("\n"))

@@ -32,8 +32,8 @@ func uploadPackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	stdin.Write(reqBody)
 
-	content_type := "application/x-git-upload-pack-result"
-	SetHeader(w, content_type)
+	contentType := "application/x-git-upload-pack-result"
+	SetHeader(w, contentType)
 
 	go io.Copy(w, stdout)
 	go io.Copy(w, stderr)
