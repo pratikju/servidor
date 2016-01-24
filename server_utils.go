@@ -8,6 +8,9 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"io"
+	"os/exec"
+	"log"
 )
 
 func GetParamValues(r *http.Request) (string, string, string) {
@@ -86,4 +89,27 @@ func FormatRepoName(repoName string) string {
 
 func GetDefaultGitPath() string {
 	return "/usr/bin/git"
+}
+
+func GetChildPipes(cmd *exec.Cmd, w http.ResponseWriter) (stdin io.WriteCloser, stdout, stderr io.ReadCloser, ok bool) {
+	var err error
+	stdin, err = cmd.StdinPipe()
+	if err != nil {
+		log.Println("Error with child stdin pipe:", err)
+		http.Error(w, "Error with child stdin pipe:", http.StatusInternalServerError)
+		return
+	}
+	stdout, err = cmd.StdoutPipe()
+	if err != nil {
+		log.Println("Error with child stdout pipe:", err)
+		http.Error(w, "Error with child stdout pipe:", http.StatusInternalServerError)
+		return
+	}
+	stderr, err = cmd.StderrPipe()
+	if err != nil {
+		log.Println("Error with child stderr pipe:", err)
+		http.Error(w, "Error with child stderr pipe:", http.StatusInternalServerError)
+		return
+	}
+	return stdin, stdout, stderr, true
 }

@@ -1,6 +1,6 @@
 # **Servidor**
 
-Servidor is a light-weight no-database git server following git smart http protocol. You can do all kind of git remote operations like push, pull, fetch and clone. Local oprations like creating branch, commiting changes etc will be handled by git client. Host the server hastle free and get started. Features supported as of now are listed below:
+Servidor is a light-weight no-database git server following git smart http protocol. You can do all kind of git remote operations like push, pull, fetch and clone. Host the server hastle free and get started. Features supported as of now are listed below:
 
 - Git Remote Operations
   - [x] Cloning of git repository.
@@ -145,7 +145,7 @@ servidor  [-a] [-b] [-c] [-g] [-h] [-p] [-r] [-s] [-R] [-U]
     - Typical successful response :
     ```
     {
-      "response_message": "Repository created successfully",
+      "response_message": "repository created successfully",
       "clone_url": "http://<hostname>:<port>/username1/project1.git"
     }
     ```
@@ -153,8 +153,8 @@ servidor  [-a] [-b] [-c] [-g] [-h] [-p] [-r] [-s] [-R] [-U]
     - Typical unsuccessful response :
     ```
     {
-     "response_message": "repository already exists for user",
-     "clone_url": "http://<hostname>:<port>/username1/project1.git"
+       "response_message": "repository already exists for user",
+       "clone_url": "http://<hostname>:<port>/username1/project1.git"
     }
     ```
 
@@ -173,11 +173,6 @@ servidor  [-a] [-b] [-c] [-g] [-h] [-p] [-r] [-s] [-R] [-U]
     "create_repo_url": "http://<hostname>:<port>/api/repos/create",
     "user_repositories_url": "http://<hostname>:<port>/api/{user-name}/repos",
     "user_repository_url": "http://<hostname>:<port>/api/{user-name}/repos/{repo-name}",
-    "branches_url": "http://<hostname>:<port>/api/{user-name}/repos/{repo-name}/branches",
-    "branch_url": "http://<hostname>:<port>/api/{user-name}/repos/{repo-name}/branches/{branch-name}"
+    "branches_url": "http://<hostname>:<port>/api/{user-name}/repos/{repo-name}/branches{/branch-name}"
   }
   ```
-
-## TODO
-
- - [ ] WebHooks

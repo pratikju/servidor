@@ -24,17 +24,8 @@ func serviceHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	cmd := exec.Command(config.GitPath, service, "--stateless-rpc", "--advertise-refs", execPath)
-
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		log.Println("Error with child stdout pipe:", err)
-		http.Error(w, "Error with child stdout pipe:", http.StatusInternalServerError)
-		return
-	}
-	stderr, err := cmd.StderrPipe()
-	if err != nil {
-		log.Println("Error with child stderr pipe:", err)
-		http.Error(w, "Error with child stderr pipe:", http.StatusInternalServerError)
+	_, stdout, stderr, ok := GetChildPipes(cmd, w)
+	if !ok {
 		return
 	}
 

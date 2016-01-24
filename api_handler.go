@@ -20,8 +20,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		CreateRepositoryUrl: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoCreateUrl()),
 		UserRepositoriesUrl: fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetReposUrl()),
 		UserRepositoryUrl:   fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetRepoUrl()),
-		BranchesUrl:         fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchesUrl()),
-		BranchUrl:           fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchUrl()),
+		BranchesUrl:         fmt.Sprintf(GetProtocol(config.SSLEnabled) + r.Host + GetBranchesUrl()+"{/branch-name}"),
 	}
 
 	WriteIndentedJson(w, baseResp, "", "  ")
@@ -57,7 +56,13 @@ func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 	bareRepo := FormatRepoName(payload.RepoName)
 	url := FormCloneURL(r.Host, payload.Username, bareRepo)
 
-	if _, err := os.Stat(RepoPath(payload.Username, payload.RepoName)); err == nil {
+	// if _, err := os.Stat(RepoPath(payload.Username, payload.RepoName)); err == nil {
+	// 	resp.ResponseMessage = fmt.Sprintf("repository already exists for %s", payload.Username)
+	// 	resp.CloneUrl = url
+	// 	return
+	// }
+
+	if ok := IsExistingRepository(RepoPath(payload.Username, payload.RepoName)); ok {
 		resp.ResponseMessage = fmt.Sprintf("repository already exists for %s", payload.Username)
 		resp.CloneUrl = url
 		return
@@ -77,7 +82,7 @@ func repoCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err := cmd.Start(); err == nil {
 		resp.CloneUrl = url
-		resp.ResponseMessage = "Repository created successfully"
+		resp.ResponseMessage = "repository created successfully"
 	} else {
 		resp.ResponseMessage = "error while creating new repository"
 		return
