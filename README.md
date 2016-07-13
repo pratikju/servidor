@@ -2,7 +2,7 @@
 
 # **Servidor**
 
-Servidor is a light-weight no-database git server following git smart HTTP protocol. You can do all kind of git remote operations like push, pull, fetch and clone. Host the server very easily and get started.
+Servidor is a light-weight no-database git http server following git smart HTTP protocol. You can do all kind of git remote operations like push, pull, fetch and clone. Host the server very easily and get started.
 
 ## Features supported as of now
 
