@@ -1,7 +1,8 @@
+[![Build Status](https://travis-ci.org/pratikju/servidor.svg?branch=master)](https://travis-ci.org/pratikju/servidor)
 
-# **GitBucket**
+# **Servidor**
 
-GitBucket is a light-weight no-database git http server following git smart HTTP protocol. You can do all kind of git remote operations like push, pull, fetch and clone. Host the server very easily and get started.
+Servidor is a light-weight no-database git http server following git smart HTTP protocol. You can do all kind of git remote operations like push, pull, fetch and clone. Host the server very easily and get started.
 
 ## Features supported as of now
 
@@ -23,9 +24,9 @@ GitBucket is a light-weight no-database git http server following git smart HTTP
 
 ## Demo
 
-![](https://github.com/gophergala2016/gitbucket/blob/master/screencasts/git_operations_without_auth.gif)
+![](https://github.com/gophergala2016/servidor/blob/master/screencasts/git_operations_without_auth.gif)
 
-[More screencasts](https://github.com/gophergala2016/gitbucket/tree/master/screencasts)
+[More screencasts](https://github.com/gophergala2016/servidor/tree/master/screencasts)
 
 ## Motivation
 
@@ -52,11 +53,11 @@ needed in GitLab. To do away with all of that in future, I decided to create a g
   [Go](https://golang.org/doc/install), you can simply run
 
   ```
-  go get github.com/pratikju/gitbucket
+  go get github.com/gophergala2016/servidor
   ```
 
-  This will download gitbucket to `$GOPATH/src/github.com/pratikju/gitbucket`. From
-  this directory run `go build` to create the `gitbucket` binary.
+  This will download Servidor to `$GOPATH/src/github.com/gophergala2016/servidor`. From
+  this directory run `go build` to create the `servidor` binary.
 
 - Troubleshooting:-  
     ```ImportError: libgit2.so.0: cannot open shared object file: No such file or directory```  
@@ -68,13 +69,13 @@ needed in GitLab. To do away with all of that in future, I decided to create a g
 
 ## Getting started
 
-Start the server by executing `gitbucket` binary. By default, gitbucket will listen to http://localhost:8000 for incoming requests.
+Start the server by executing `servidor` binary. By default, servidor will listen to http://localhost:8000 for incoming requests.
 
 
 ## Options:
 ```
-./gitbucket -h
-Usage of ./gitbucket:
+./servidor -h
+Usage of ./servidor:
   -R	Set Whether ReceivePack(push operation) will be restricted
   -U	Set Whether UploadPack(clone, pull, fetch operations) will be restricted
   -a	Enable basic authentication for all http operations
@@ -85,9 +86,9 @@ Usage of ./gitbucket:
   -g string
     	Mention the gitPath if its different on hosting machine (default "/usr/bin/git")
   -p string
-    	Port on which gitbucket will listen (default "8000")
+    	Port on which servidor will listen (default "8000")
   -r string
-    	Set the path where repositories will be saved, Just mention the base path("repos" directory will be automatically created inside it) (default "/home/administrator/gitbucket")
+    	Set the path where repositories will be saved, Just mention the base path("repos" directory will be automatically created inside it) (default "/home/administrator/servidor")
   -s	Enable tls connection
 ```
 
